@@ -7,9 +7,53 @@
     "build": "ng build",
     "test": "ng test",
     "lint": "ng lint",
-    "e2e": "ng e2e"
+    "e2e": "ng e2e",
+    "storybook": "start-storybook -p 6006",
+    "build-storybook": "build-storybook",
+    "jest": "jest",
+    "jest:watch": "jest --watch"
   },
   "private": true,
+  "jest": {
+    "globals": {
+      "ts-jest": {
+        "tsConfigFile": "<rootDir>/tsconfig.spec.json"
+      },
+      "__TRANSFORM_HTML__": true
+    },
+    "coveragePathIgnorePatterns": [
+      "/jest-config/",
+      "/node_modules/"
+    ],
+    "preset": "jest-preset-angular",
+    "setupFilesAfterEnv": [
+      "<rootDir>/src/jest-config/setup.ts"
+    ],
+    "snapshotSerializers": [
+      "<rootDir>/node_modules/jest-preset-angular/AngularSnapshotSerializer.js",
+      "<rootDir>/node_modules/jest-preset-angular/HTMLCommentSerializer.js"
+    ],
+    "moduleFileExtensions": [
+      "ts",
+      "js",
+      "html",
+      "json"
+    ],
+    "testPathIgnorePatterns": [
+      "/node_modules/",
+      "/build/",
+      "/storybook-static/",
+      "/src/test.ts"
+    ],
+    "transform": {
+      "^.+\\.stories\\.[tj]s$": "@storybook/addon-storyshots/injectFileName",
+      "^.+\\.(ts|js|html)$": "<rootDir>/node_modules/jest-preset-angular/preprocessor.js",
+      "^.+\\.[tj]s$": "babel-jest"
+    },
+    "moduleNameMapper": {
+      "\\.(css|less)$": "identity-obj-proxy"
+    }
+  },
   "dependencies": {
     "@angular/animations": "~8.2.14",
     "@angular/common": "~8.2.14",
@@ -28,18 +72,35 @@
     "@angular/cli": "~8.3.23",
     "@angular/compiler-cli": "~8.2.14",
     "@angular/language-service": "~8.2.14",
-    "@types/node": "~8.9.4",
+    "@babel/core": "^7.8.3",
+    "@storybook/addon-actions": "^5.3.8",
+    "@storybook/addon-links": "^5.3.8",
+    "@storybook/addon-notes": "^5.3.8",
+    "@storybook/addon-storyshots": "^5.3.8",
+    "@storybook/addons": "^5.3.8",
+    "@storybook/angular": "^5.3.8",
     "@types/jasmine": "~3.3.8",
     "@types/jasminewd2": "~2.0.3",
+    "@types/lodash": "^4.14.149",
+    "@types/node": "~8.9.4",
+    "babel-loader": "^8.0.6",
+    "babel-preset-env": "^1.7.0",
     "codelyzer": "^5.0.0",
+    "core-js": "^2.6.11",
+    "css-loader": "^3.4.2",
+    "identity-obj-proxy": "^3.0.0",
     "jasmine-core": "~3.4.0",
     "jasmine-spec-reporter": "~4.2.1",
+    "jest": "^24.9.0",
+    "jest-preset-angular": "^6.0.2",
     "karma": "~4.1.0",
     "karma-chrome-launcher": "~2.2.0",
     "karma-coverage-istanbul-reporter": "~2.0.1",
     "karma-jasmine": "~2.0.1",
     "karma-jasmine-html-reporter": "^1.4.0",
+    "less-loader": "^5.0.0",
     "protractor": "~5.4.0",
+    "style-loader": "^1.1.3",
     "ts-node": "~7.0.0",
     "tslint": "~5.15.0",
     "typescript": "~3.5.3"
